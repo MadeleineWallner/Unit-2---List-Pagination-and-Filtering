@@ -36,14 +36,16 @@ FSJS project 2 - List Filter and Pagination
 ***/
 
 
-
+//global variables, one to store the list of students and one to store the maximum number of students per page
 const students = document.getElementsByClassName('student-item cf');
 const studentsPerPage = 10; 
 console.log(students);
 
 
 
-
+// function to show 10 students per page and hide the rest. 
+ 
+ 
 const showPage = (list, page) => {
    const startIndex = (page * studentsPerPage) - studentsPerPage;
    const endIndex =  page * studentsPerPage;
@@ -53,13 +55,13 @@ for (let i = 0; i < list.length; i++){
   list[i].style.display = 'block'; 
 } else {
    list[i].style.display = 'none';
-}   
-}
-}
+      }   
+   }
+};
 
 
 
-
+//function to 
 
 const appendPageLinks = (list) => {
 const pages = Math.ceil(students.length/studentsPerPage);
@@ -71,23 +73,23 @@ let ul = document.createElement('ul');
 paginationDIV.appendChild(ul);
 
 
-for (let i = 0; i <= pages; i+= 1){
+for (let i = 1; i <= pages; i+= 1){
       let li = document.createElement('li');
+      ul.appendChild(li);
       const a = document.createElement('a');
       a.className = 'active';
-      a.textContent = i;
+      a.innerHTML = i;
       a.href = '#';
       li.appendChild(a);
       
-      
 
-      a.addEventListener('click', (event) => {
+      a.addEventListener('click', () => {
          for (let j = 0; j <= pages; j+= 1){
-            pages.classList.remove('active');
-            event.target.classList.add('active'); 
             const textContent = a.innerHTML;
-            showPage(students, textContent);     
-      }        
+            showPage(students, textContent); 
+            a.classList.remove('active');
+            event.target.classList.add('active');         
+      }      
       });    
    }
 }
