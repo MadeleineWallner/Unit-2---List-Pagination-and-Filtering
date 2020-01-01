@@ -43,7 +43,7 @@ console.log(students);
 
 
 
-// function to show 10 students per page and hide the rest. 
+// function to show no more than 10 students per page and hide the rest. 
  
  
 const showPage = (list, page) => {
@@ -61,7 +61,8 @@ for (let i = 0; i < list.length; i++){
 
 
 
-//function to 
+//creating the buttons and giving them a function. 
+//Calculating how many pages are needed by dividing the number of students by the maximum number of students per page.
 
 const appendPageLinks = (list) => {
 const pages = Math.ceil(students.length/studentsPerPage);
@@ -72,28 +73,34 @@ page.appendChild(paginationDIV);
 let ul = document.createElement('ul');
 paginationDIV.appendChild(ul);
 
+//creating the buttons and giving each button a page number. Highlight the button for page 1 by giving it the 'active'-class
 
-for (let i = 1; i <= pages; i+= 1){
+for (let i = 1; i <= pages; i++){
       let li = document.createElement('li');
       ul.appendChild(li);
-      const a = document.createElement('a');
-      a.className = 'active';
-      a.innerHTML = i;
-      a.href = '#';
-      li.appendChild(a);
-      
+      const button = document.createElement('a');
+      button.innerHTML = i;
+      button.href = '#';
+      li.appendChild(button);
 
-      a.addEventListener('click', () => {
-         for (let j = 0; j <= pages; j+= 1){
-            const textContent = a.innerHTML;
-            showPage(students, textContent); 
-            a.classList.remove('active');
-            event.target.classList.add('active');         
-      }      
+      const firstPage = document.querySelectorAll('a');
+      firstPage[0].className = 'active';
+      
+//giving the buttons functions. The button being clicked is highlighted and shows the associated page.
+
+      button.addEventListener('click', (e) => {
+         for (let j = 0; j <= pages.length; j++){
+            const fjkd = document.getElementsByTagName('a');
+            fjkd[j].classList.remove = 'active';
+      }  
+      e.target.classList.add('active');
+      showPage(students, e.target.innerHTML);    
       });    
    }
 }
 
+
+//calling the 2 functions
 showPage(students, 1);
 appendPageLinks(students);
 
