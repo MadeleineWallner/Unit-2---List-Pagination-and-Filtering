@@ -42,6 +42,53 @@ const studentsPerPage = 10;
 console.log(students);
 
 
+//creating the search bar and search button
+let pageHeader = document.getElementsByClassName('page-header cf')[0];
+const searchDiv = document.createElement('div');
+searchDiv.className = 'student-search';
+pageHeader.appendChild(searchDiv);
+const searchBar = document.createElement('input');
+searchBar.type = 'text';
+searchBar.placeholder = 'Search for students...';
+searchDiv.appendChild(searchBar);
+const button = document.createElement('button');
+button.textContent = 'Search';
+searchDiv.appendChild(button);
+
+
+
+//function to filter out which students to show and which to hide
+const studentList = document.querySelectorAll('h3');
+
+
+
+const searchFunction = (names, input) => {
+  for (i = 0; i < names.length; i++){
+   if (names[i].textContent.toLowerCase().includes(input.value.toLowerCase())){
+      names[i].style.display = 'block';
+      console.log(names[i]);
+   }
+   
+}
+};
+
+
+button.addEventListener('click', (e) => {
+   e.preventDefault();
+   searchFunction(studentList, searchBar);
+   
+
+});
+
+
+
+
+
+
+
+
+
+
 
 // function to show no more than 10 students per page and hide the rest. 
  
@@ -61,14 +108,15 @@ for (let i = 0; i < list.length; i++){
 
 
 
-//creating the buttons and giving them a function. 
-//Calculating how many pages are needed by dividing the number of students by the maximum number of students per page.
+//Function that calculates how many pages are needed. 
+//Creating the pagination div and giving it the class name 'pagination', appending it to the div with the 'page' class name
+//Creating the ul element and appending it to the pagination Div 
 
 const appendPageLinks = (list) => {
 const pages = Math.ceil(students.length/studentsPerPage);
 const paginationDIV = document.createElement('div');
 paginationDIV.className = 'pagination';
-let page = document.querySelector('.page');
+let page = document.getElementsByClassName('page')[0];
 page.appendChild(paginationDIV);
 let ul = document.createElement('ul');
 paginationDIV.appendChild(ul);
@@ -79,19 +127,18 @@ for (let i = 1; i <= pages; i++){
       let li = document.createElement('li');
       ul.appendChild(li);
       const button = document.createElement('a');
+      li.appendChild(button);
       button.innerHTML = i;
       button.href = '#';
-      li.appendChild(button);
-
-      const firstPage = document.querySelectorAll('a');
+      
+      const firstPage = document.getElementsByTagName('a');
       firstPage[0].className = 'active';
       
 //giving the buttons functions. The button being clicked is highlighted and shows the associated page.
 
-      button.addEventListener('click', (e) => {
-         for (let j = 0; j <= pages.length; j++){
-            const fjkd = document.getElementsByTagName('a');
-            fjkd[j].classList.remove = 'active';
+      ul.addEventListener('click', (e) => {
+         for (let j = 0; j <= pages; j++){
+            button.classList.remove('active');
       }  
       e.target.classList.add('active');
       showPage(students, e.target.innerHTML);    
@@ -104,5 +151,5 @@ for (let i = 1; i <= pages; i++){
 showPage(students, 1);
 appendPageLinks(students);
 
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
+
 
