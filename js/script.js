@@ -1,5 +1,5 @@
 
-//global variables, one to store the list of students and one to store the maximum number of students per page
+//variables, one to store the list of students and one to store the maximum number of students per page
 const students = document.getElementsByClassName('student-item cf');
 const studentsPerPage = 10; 
 
@@ -17,11 +17,14 @@ const button = document.createElement('button');
 button.textContent = 'Search';
 searchDiv.appendChild(button);
 
-
+//creating the No-results message
+const noMatches = document.createElement('p');
+noMatches.innerHTML = 'No results';
+const studentsUL = document.getElementsByClassName('student-list')[0];
+studentsUL.appendChild(noMatches);
 
 
 //function to filter out which students to show and which to hide
-
 const searchFunction = (names, input) => { 
    let matches = [];
    let paginationLinks = document.getElementsByClassName('pagination')[0];
@@ -29,10 +32,9 @@ const searchFunction = (names, input) => {
       paginationLinks.remove();
    }
   for (let i = 0; i < names.length; i++){
+   names[i].style.display = 'none';
    if (names[i].textContent.toLowerCase().includes(input.value.toLowerCase())){
       matches.push(names[i]);
-
-   } else { names[i].style.display = 'none'
    } 
   }
   showPage(matches, 1);
@@ -40,10 +42,9 @@ const searchFunction = (names, input) => {
   
     //if there's no matches, print out 'No results'
     if (matches.length === 0){
-      const noMatches = document.createElement('p');
-      noMatches.innerHTML = 'No results';
-      const studentsUL = document.getElementsByClassName('student-list')[0];
-      studentsUL.appendChild(noMatches);
+      noMatches.style.display = '';
+   } else {
+      noMatches.style.display = 'none';
    }
 };
 
@@ -91,8 +92,8 @@ page.appendChild(paginationDIV);
 let ul = document.createElement('ul');
 paginationDIV.appendChild(ul);
 
-//creating the buttons and giving each button a page number. Highlight the button for page 1 by giving it the 'active'-class
 
+//creating the buttons and giving each button a page number. Highlight the button for page 1 by giving it the 'active'-class
 for (let i = 1; i <= pages; i++){
       let li = document.createElement('li');
       ul.appendChild(li);
@@ -103,9 +104,9 @@ for (let i = 1; i <= pages; i++){
       
       const firstPage = document.getElementsByTagName('a');
       firstPage[0].className = 'active';
+
       
 //giving the buttons functions. The button being clicked is highlighted and shows the associated page.
-
       ul.addEventListener('click', (e) => {
          for (let j = 0; j <= pages; j++){
             button.classList.remove('active');
@@ -117,5 +118,6 @@ for (let i = 1; i <= pages; i++){
 }
 
 //calling the functions
-showPage(students, 1);
-pageLinks(students);
+   showPage(students, 1);
+   pageLinks(students);
+
