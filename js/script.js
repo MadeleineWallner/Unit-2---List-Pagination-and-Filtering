@@ -83,14 +83,14 @@ for (let i = 0; i < list.length; i++){
 //Creating the ul element and appending it to the pagination Div 
 
 const pageLinks = (list) => {
-let studentCount = list.length;
-const pages = Math.ceil(studentCount/studentsPerPage);
-const paginationDIV = document.createElement('div');
-paginationDIV.className = 'pagination';
-let page = document.getElementsByClassName('page')[0];
-page.appendChild(paginationDIV);
-let ul = document.createElement('ul');
-paginationDIV.appendChild(ul);
+   let studentCount = list.length;
+   const pages = Math.ceil(studentCount/studentsPerPage);
+   const paginationDIV = document.createElement('div');
+   paginationDIV.className = 'pagination';
+   let page = document.getElementsByClassName('page')[0];
+   page.appendChild(paginationDIV);
+   let ul = document.createElement('ul');
+   paginationDIV.appendChild(ul);
 
 
 //creating the buttons and giving each button a page number. Highlight the button for page 1 by giving it the 'active'-class
